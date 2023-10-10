@@ -1,10 +1,11 @@
-import React from 'react';
 import './App.css';
+import '../Converter/Converter';
+import Converter from '../Converter/Converter';
 
 function App() {
   return (
     <div className="App">
-      Привет, МИР!
+      <Converter />
     </div>
   );
 }

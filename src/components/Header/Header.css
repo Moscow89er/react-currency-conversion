@@ -1,0 +1,15 @@
+.header_button-link {
+    background-color: transparent;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: x-large;
+    margin-right: 50px;
+}
+
+.header_button-link:last-child {
+    margin-right: 0;
+}
+
+.header_button-link:hover {
+    color: rgb(0, 0, 0, .6);
+}

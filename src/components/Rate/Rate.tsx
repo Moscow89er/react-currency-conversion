@@ -1,6 +1,6 @@
 import './Rate.css';
 
-function Rate() {
+function Rate({ rates }: { rates: any }) {
     return (
         <section className="rate d-flex flex-column align-items-center vh-100 bg-warning">
             <select name="currency" id="currency" className="rate-control form-control mb-5 w-50">

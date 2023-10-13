@@ -1,32 +1,32 @@
 import { ChangeEvent, useState } from 'react';
 import './Converter.css';
-import api from '../../utils/api';
+import { Rates } from '../../interfaces/interfaces';
+import { CurrencyType } from '../../types/types';
 
-function Converter() {
-    const [value, setValue] = useState('');
-    const [currency, setCurrency] = useState('');
+interface ConverterProps {
+    rates: Rates;
+}
+
+function Converter({ rates }: ConverterProps ) {
+    const [value, setValue] = useState<string>('');
+    const [currency, setCurrency] = useState<CurrencyType | ''>('');
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         setValue(event.target.value);
     }
 
     function handleCurrencyChange(event: ChangeEvent<HTMLSelectElement>) {
-        setCurrency(event.target.value);
+        const currValue = event.target.value as CurrencyType;
+        setCurrency(currValue);
     }
 
     function handleConvert(event: ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
-
-        if (value && currency) {
-            api.convert(value, 'RUB', currency)
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error('Ошибка конвертации: ', error);
-            })
-        }
         
+        if (value && currency && rates.RUB) {
+            const convertedValue = parseFloat(value) * rates[currency]! / rates.RUB;
+            console.log(`Конвертированное значение: ${convertedValue}`);
+        }
     }
 
     return (

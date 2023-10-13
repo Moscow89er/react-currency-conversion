@@ -19,7 +19,7 @@ class Api {
 }
 
 const api = new Api ({
-    url: 'https://openexchangerates.org/api/',
+    url: 'https://openexchangerates.org/api',
     headers: {
         'Authorization': `Token ${process.env.REACT_APP_API_KEY}`,
         'Content-Type': 'application/json'

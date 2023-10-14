@@ -10,6 +10,7 @@ interface ConverterProps {
 function Converter({ rates }: ConverterProps ) {
     const [value, setValue] = useState<string>('');
     const [currency, setCurrency] = useState<CurrencyType | ''>('');
+    const [convertedValue, setConvertedValue] = useState<number| null>(null);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         setValue(event.target.value);
@@ -24,8 +25,9 @@ function Converter({ rates }: ConverterProps ) {
         event.preventDefault();
         
         if (value && currency && rates.RUB) {
-            const convertedValue = parseFloat(value) * rates[currency]! / rates.RUB;
-            console.log(`Конвертированное значение: ${convertedValue}`);
+            const newConvertedValue = parseFloat(value) * rates[currency]! / rates.RUB;
+            const roundedValue = parseFloat(newConvertedValue.toFixed(2));
+            setConvertedValue(roundedValue);
         }
     }
 
@@ -60,6 +62,13 @@ function Converter({ rates }: ConverterProps ) {
                 >
                     Сконвертировать
                 </button>
+                {convertedValue && (
+                    <div className="card mt-3 w-50">
+                        <div className="card-body text-center converter-display">
+                            {convertedValue}
+                        </div>
+                    </div>
+                )}
             </form>
         </section>
     )

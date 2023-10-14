@@ -1,27 +1,15 @@
-import { ChangeEvent, useState } from 'react';
 import './Rate.css';
-import { CurrencyType, } from '../../types/types';
-
-function Rate({ rates }: { rates: any }) {
-    const [usd, setUsd] = useState<number | null>(null);
-    const [gel, setGel] = useState<number| null>(null);
-    const [rub, setRub] = useState<number| null>(null);
-    const [currency, setCurrency] = useState<CurrencyType | ''>('');
+import { RateProps } from '../../interfaces/interfaces';
 
 
-    function handleCurrencyChange(event: ChangeEvent<HTMLSelectElement>) {
-        const currValue = event.target.value as CurrencyType;
-        setCurrency(currValue);
-    }
 
-    function handleSetBasicCurrency() {
-        if (currency && rates[currency]) {
-            setUsd(parseFloat((rates['USD'] / rates[currency]).toFixed(2)));
-            setGel(parseFloat((rates['GEL'] / rates[currency]).toFixed(2)));
-            setRub(parseFloat((rates['RUB'] / rates[currency]).toFixed(2)));
-        }
-    }
-
+function Rate({
+    usd,
+    gel,
+    rub,
+    handleSetBasicCurrency,
+    handleCurrencyChange
+}: RateProps) {
     return (
         <section className="rate d-flex flex-column align-items-center vh-100 bg-warning">
             <form 

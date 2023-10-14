@@ -10,11 +10,15 @@ import { CurrencyType } from '../../types/types';
 
 function App() {
   const [rates, setRates] = useState<Rates>({});
+  // Rate states
   const [currency, setCurrency] = useState<CurrencyType | ''>('');
   const [usd, setUsd] = useState<number | null>(null);
   const [gel, setGel] = useState<number| null>(null);
   const [rub, setRub] = useState<number| null>(null);
-  
+  // Convert states
+  const [value, setValue] = useState<string>('');
+  const [currencyToConvert, setCurrencyToConvert] = useState<CurrencyType | ''>('');
+  const [convertedValue, setConvertedValue] = useState<number| null>(null);
 
   useEffect(() => {
       api.getLatestRates().then(data => {
@@ -39,6 +43,25 @@ function App() {
     setCurrency(currValue);
   }
 
+  function handleCurrencyToConvertChange(event: ChangeEvent<HTMLSelectElement>) {
+    const currValue = event.target.value as CurrencyType;
+    setCurrencyToConvert(currValue);
+  }
+
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  function handleConvert(event: ChangeEvent<HTMLFormElement>) {
+      event.preventDefault();
+      
+      if (value && currencyToConvert && currency) {
+          const newConvertedValue = parseFloat(value) * rates[currencyToConvert]! / rates[currency]!;
+          const roundedValue = parseFloat(newConvertedValue.toFixed(2));
+          setConvertedValue(roundedValue);
+      }
+  }
+
   return (
     <Router>
       <div className="App">
@@ -61,7 +84,13 @@ function App() {
             path='/converter'
             element={
               <Converter
-                rates={rates}
+                currencyToConvert={currencyToConvert}
+                convertedValue={convertedValue}
+                handleCurrencyToConvertChange={handleCurrencyToConvertChange}
+                handleInputChange={handleInputChange}
+                handleConvert={handleConvert}
+                value={value}
+                currency={currency}
               />
             }
           />

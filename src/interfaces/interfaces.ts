@@ -1,4 +1,11 @@
-import { HandleSetBasicCurrencyType, HandleCurrencyChangeType } from "../types/types";
+import {
+    HandleSetBasicCurrencyType,
+    HandleCurrencyChangeType,
+    CurrencyType,
+    HandleCurrencyToConvertChangeType,
+    HandleInputChangeType,
+    HandleConvertType
+} from "../types/types";
 
 export interface Rates {
     RUB?:number;
@@ -24,4 +31,14 @@ export interface RateProps {
     rub: number | null,
     handleSetBasicCurrency: HandleSetBasicCurrencyType,
     handleCurrencyChange: HandleCurrencyChangeType
+}
+
+export interface ConverterProps {
+    currencyToConvert: CurrencyType | '',
+    convertedValue: number | null,
+    handleCurrencyToConvertChange: HandleCurrencyToConvertChangeType,
+    handleInputChange: HandleInputChangeType,
+    handleConvert: HandleConvertType,
+    value: string,
+    currency: CurrencyType | ''
 }

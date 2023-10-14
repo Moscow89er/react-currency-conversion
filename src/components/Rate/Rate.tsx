@@ -1,8 +1,6 @@
 import './Rate.css';
 import { RateProps } from '../../interfaces/interfaces';
 
-
-
 function Rate({
     usd,
     gel,
@@ -23,7 +21,7 @@ function Rate({
                     className="rate-control form-control mb-3 w-100"
                     onChange={handleCurrencyChange}    
                 >
-                    <option value="">Выберите базовую валюту</option>
+                    <option value="">Выберите валюту</option>
                     <option value="RUB">RUB</option>
                     <option value="GEL">GEL</option>
                     <option value="USD">USD</option>
